@@ -21,7 +21,7 @@ let users = [
         id: "8xf0y6ziyjabvozdd253nf",
         name: "IPhone36SPropMax",
         category:"Electronics",
-        Price:"12000",
+        price:"12000",
         itemsCount:6,
       },
   }
