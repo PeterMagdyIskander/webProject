@@ -24,7 +24,16 @@ let users = [
         price:"12000",
         itemsCount:6,
       },
+      "8xf0y6ziyjabvozdd253ng":{
+        owner: "petergeorge",
+        id: "8xf0y6ziyjabvozdd253ng",
+        name: "RAZOR HSBC VANG LAPTOP 3090RTS",
+        category:"Electronics",
+        price:"1569357",
+        itemsCount:6,
+      },
   }
+  let myCart=[];
   function binarySearch(ArrayOfUsers, username) {
     let data = ArrayOfUsers;
     data.sort((a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1));
@@ -45,11 +54,29 @@ let users = [
   
   export function _getItems() {
     return new Promise((res, rej) => {
-      setTimeout(() => res(items), 1000);
+      setTimeout(() => res(items), 50);
     });
   }
-  
-  
+  export function _getCart() {
+    return new Promise((res, rej) => {
+      setTimeout(() => res(myCart), 50);
+    });
+  }
+  export function _getItem(id) {
+    return new Promise((res, rej) => {
+      setTimeout(() => res(items[id]), 50);
+    });
+  }
+  export function _addItemToCart(itemId,count){
+    let cartItem={
+      "item":items[itemId],
+      "boughtCount":count,
+    }
+    myCart.push(cartItem);
+    return new Promise((res, rej) => {
+      setTimeout(() => res(true), 50);
+    });
+  }
   export function _signIn(username, password) {
     let userAccount = null;
     let index = binarySearch(users, username);
@@ -57,7 +84,7 @@ let users = [
       userAccount = users[index];
     }
     return new Promise((res, rej) => {
-      setTimeout(() => res(userAccount), 1000);
+      setTimeout(() => res(userAccount), 50);
     });
   }
   
@@ -66,7 +93,7 @@ let users = [
     let index = binarySearch(users, item.owner);
     users[index].itemIds.push(item.id);
     return new Promise((res, rej) => {
-      setTimeout(() => res(true), 1000);
+      setTimeout(() => res(true), 50);
     });
   }
   

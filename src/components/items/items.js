@@ -18,9 +18,16 @@ const ItemsPage = (props) => {
       setCategories(cats);
     }
   };
+  const checkCategory=(cat)=>{
+    if(categories.length===0){
+      return true;
+    }else{
+      return categories.includes(cat)
+    }
+  }
   const handleFilteration=()=>{
         let ids = itemsIds.filter((id) => {
-        return +minRange <= +items[id].price && +maxRange >= +items[id].price&&categories.includes(items[id].category) ;
+        return +minRange <= +items[id].price && +maxRange >= +items[id].price&&checkCategory(items[id].category) ;
       });
       setDisplayItemsIds(ids);
       console.log(ids);
@@ -48,6 +55,7 @@ const ItemsPage = (props) => {
             setMaxRange(e.target.value);
           }}
         />
+        <br/>
         <button
           onClick={() => {
             handleFilteration();
