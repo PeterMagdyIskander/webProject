@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addItemToCart, getItem } from "../../utils/api";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const Item = (props) => {
   const [item, setItem] = useState({});
   const [count, setCount] = useState(0);
@@ -22,7 +22,6 @@ const Item = (props) => {
     };
     showItem();
   }, [id]);
-
   return (
     <div>
       <p>name {item.name}</p>
@@ -44,15 +43,15 @@ const Item = (props) => {
         </button>
       </div>
       {count}
-      <button onClick={buyItem}> Add to Cart </button>
-      <Link to={`/myshoppingcart`}> go to shoppingCart </Link>
+      <button disabled={props.authedUser==null} onClick={buyItem}> Add to Cart </button>
     </div>
   );
 };
 
-function mapStateToProps({ items }) {
+function mapStateToProps({ items,authedUser }) {
   return {
     items,
+    authedUser,
   };
 }
 

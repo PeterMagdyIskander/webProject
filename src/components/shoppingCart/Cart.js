@@ -1,7 +1,8 @@
 import { getCart} from "../../utils/api";
+import { connect } from "react-redux";
 import { useState, useEffect } from "react";
-
-const Cart = () => {
+import { Link } from "react-router-dom";
+const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
     const [total,setTotal]=useState(0);
   useEffect(() => {
@@ -29,7 +30,9 @@ const Cart = () => {
   
   return (
     <div>
-      <ul>
+    {
+      props.authedUser==null? <Link to="/signup"/>:
+    <div><ul>
         {cartItems.map((item) => {
           return (
             <li key={item.item.id}>
@@ -39,8 +42,16 @@ const Cart = () => {
           );
         })}
       </ul>
-      <p>total : {total}</p>
+      <p>total : {total}</p> </div>
+    }
     </div>
   );
 };
-export default Cart;
+
+
+function mapStateToProps({authedUser}){
+  return {
+    authedUser,
+  }
+}
+export default connect(mapStateToProps)(Cart);

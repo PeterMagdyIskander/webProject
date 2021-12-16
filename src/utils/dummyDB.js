@@ -29,7 +29,7 @@ let users = [
         id: "8xf0y6ziyjabvozdd253ng",
         name: "RAZOR HSBC VANG LAPTOP 3090RTS",
         category:"Electronics",
-        price:"1569357",
+        price:"1567",
         itemsCount:6,
       },
   }
@@ -97,3 +97,29 @@ let users = [
     });
   }
   
+  export function _signUp(username,name,password,owner){
+    let user=null;
+    
+    let found=false;
+    users.forEach((user)=>{
+      if(user.id===username){
+        found=true;
+      }
+    })
+    if (!found ) {
+      console.log(username,name,password,owner)
+      user={
+        "id": username,
+        "name": name,
+        "password": password,
+        "owner": owner,
+        "itemIds": [],
+      }
+      
+      users.push(user);
+    }
+    let index = binarySearch(users, username);
+    return new Promise((res, rej) => {
+      setTimeout(() => res(users[index]), 50);
+    });
+  }
