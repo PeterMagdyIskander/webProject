@@ -28,6 +28,7 @@ const Item = (props) => {
       <p>price {item.price}</p>
       <div style={{ display: "flex" }}>
         <button
+          disabled={count>item.itemsCount-1}
           onClick={() => {
             setCount(count + 1);
           }}
@@ -35,6 +36,7 @@ const Item = (props) => {
           +
         </button>
         <button
+        disabled={count<=0}
           onClick={() => {
             setCount(count - 1);
           }}
@@ -43,7 +45,7 @@ const Item = (props) => {
         </button>
       </div>
       {count}
-      <button disabled={props.authedUser==null} onClick={buyItem}> Add to Cart </button>
+      <button disabled={count==0||props.authedUser==null} onClick={buyItem}> Add to Cart </button>
     </div>
   );
 };
