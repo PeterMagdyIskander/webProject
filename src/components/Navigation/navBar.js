@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import OwnerNavBar from "./OwnerNavbar";
 import UserNavBar from "./UserNavbar";
-
 const NavBar = (props) => {
   return (
     <div>
@@ -10,7 +9,7 @@ const NavBar = (props) => {
         <div >
           <p> [OUR LOGO] Happy Shopping </p>{" "}
           <Link to="/signin" activeclassname="active">
-            signIn
+            <button >Sign in</button>
           </Link>
         </div>
       ) : props.authedUser.owner ? (

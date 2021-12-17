@@ -66,7 +66,7 @@ const ItemsPage = (props) => {
       </div>
       <div style={{ width: "80%"}}>
         <h1 style={{ textAlign: "center" }}>Items</h1>
-        <ul style={{ display:"flex",flexWrap:"wrap",listStyle: "none" }}>
+        <ul style={{ display:"flex",flexWrap:"wrap",listStyle: "none",justifyContent:"space-evenly" }}>
           {displayItemsIds.map((id) => (
             <li style={{backgroundColor:'#f1f1f1',width:"auto",margin:"10px",textAlign:"center"}} key={id} >
               <ItemCard items={items[id]} id={items[id].id} />{" "}
