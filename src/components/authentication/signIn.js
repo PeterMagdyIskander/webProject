@@ -33,20 +33,19 @@ const SignIn = (props) => {
       />
       <br />
       <br />
-      <button
-        onClick={() => {
+      <button>
+        <Link to='/' onClick={() => {
           handleOnClick();
-        }}
-      >
-        <Link to='/'>Login</Link>
+        }}>Login</Link>
       </button>
+      
       <br />
       <br />
       <br />
       <button>
         <Link to="/signup">Don't Have an account?</Link>
       </button>
-    </div>
+    </div> 
   );
 };
 export default connect()(SignIn);

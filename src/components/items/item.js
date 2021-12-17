@@ -44,8 +44,11 @@ const Item = (props) => {
           -
         </button>
       </div>
-      {count}
-      <button disabled={count==0||props.authedUser==null} onClick={buyItem}> Add to Cart </button>
+      <br/>
+      <button disabled={count===0||props.authedUser==null} onClick={buyItem}> Add to Cart </button>
+      { 
+        item.itemsCount <=0 ? <p style={{color:"red"}}>OUT OF STOCK</p> : <br/>
+      }
     </div>
   );
 };

@@ -27,7 +27,7 @@ const ItemsPage = (props) => {
   }
   const handleFilteration=()=>{
         let ids = itemsIds.filter((id) => {
-        return +minRange <= +items[id].price && +maxRange >= +items[id].price&&checkCategory(items[id].category) ;
+        return +minRange <= +items[id].price && +maxRange >= +items[id].price&&checkCategory(items[id].category);
       });
       setDisplayItemsIds(ids);
       console.log(ids);
@@ -38,7 +38,7 @@ const ItemsPage = (props) => {
   }, [itemsIds]);
   return (
     <div style={{ display: "flex", height: "100%" }}>
-      <div style={{ width: "20%" }}>
+      <div style={{ width: "15%" }}>
         <h1>Filter By Price</h1>
         <input
           type="number"
@@ -64,17 +64,17 @@ const ItemsPage = (props) => {
           Confirm
         </button>
       </div>
-      <div style={{ width: "80%" }}>
+      <div style={{ width: "80%"}}>
         <h1 style={{ textAlign: "center" }}>Items</h1>
-        <ol>
+        <ul style={{ display:"flex",flexWrap:"wrap",listStyle: "none" }}>
           {displayItemsIds.map((id) => (
-            <li key={id}>
+            <li style={{backgroundColor:'#f1f1f1',width:"auto",margin:"10px",textAlign:"center"}} key={id} >
               <ItemCard items={items[id]} id={items[id].id} />{" "}
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
-      <div style={{ width: "20%" }}>
+      <div style={{ width: "15%" }}>
         <h1>Filter By Category</h1>
         <input
           type="checkbox"

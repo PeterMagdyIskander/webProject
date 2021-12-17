@@ -2,9 +2,10 @@ import { getCart} from "../../utils/api";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { receiveItems } from "../../actions/items";
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
-    const [total,setTotal]=useState(0);
+  const [total,setTotal]=useState(0);
   useEffect(() => {
     const getTheCart = () => {
       let cart = getCart();
@@ -28,6 +29,23 @@ const Cart = (props) => {
       calculateTotal()
   }, [cartItems,total]);
   
+  const handleCheckOut=()=>{
+    let allItems=props.items;
+    
+    cartItems.forEach((item)=>{
+      for(let i=0;i<props.itemsIds.length;i++){
+        
+        if(allItems[props.itemsIds[i]].name===item.item.name){
+          
+          allItems[props.itemsIds[i]].itemsCount-=item.boughtCount;
+          console.log("item after update",allItems[props.itemsIds[i]]);
+        }
+      }
+    })
+    
+    return props.dispatch(receiveItems(allItems));
+  }
+  
   return (
     <div>
     {
@@ -44,14 +62,18 @@ const Cart = (props) => {
       </ul>
       <p>total : {total}</p> </div>
     }
+    <button onClick={()=>{handleCheckOut()}}> checkOut</button>
     </div>
   );
 };
 
 
-function mapStateToProps({authedUser}){
+function mapStateToProps({authedUser,items}){
+  let itemsIds=Object.keys(items);
   return {
     authedUser,
+    items,
+    itemsIds,
   }
 }
 export default connect(mapStateToProps)(Cart);

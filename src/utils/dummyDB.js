@@ -1,3 +1,4 @@
+
 let users = [
     {
       id: "petermagdy",
@@ -11,7 +12,7 @@ let users = [
       name: "Peter George",
       password: "12345678",
       owner: true,
-      itemIds: ["8xf0y6ziyjabvozdd253nf"],
+      itemIds: ["8xf0y6ziyjabvozdd253nf","8xf0y6ziyjabvozdd253ng"],
     },
   ];
   
@@ -19,18 +20,20 @@ let users = [
       "8xf0y6ziyjabvozdd253nf":{
         owner: "petergeorge",
         id: "8xf0y6ziyjabvozdd253nf",
-        name: "IPhone36SPropMax",
+        name: "Iphone 13",
         category:"Electronics",
-        price:"12000",
+        price:"18000",
         itemsCount:6,
+        img:'images/iphone13.png',
       },
       "8xf0y6ziyjabvozdd253ng":{
         owner: "petergeorge",
         id: "8xf0y6ziyjabvozdd253ng",
-        name: "RAZOR HSBC VANG LAPTOP 3090RTS",
+        name: "Razor Blade 15",
         category:"Electronics",
-        price:"1567",
+        price:"35000",
         itemsCount:6,
+        img:'images/razorblade15.png',
       },
   }
   let myCart=[];
