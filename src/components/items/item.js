@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addItemToCart, getItem } from "../../utils/api";
 import { useParams } from "react-router-dom";
+import '../../styles/app.css'
 const Item = (props) => {
   const [item, setItem] = useState({});
   const [count, setCount] = useState(0);
   const { id } = useParams();
-  const buyItem=()=>{
-    const response =addItemToCart(id,count);
-    response.then((res)=>{
+  const buyItem = () => {
+    const response = addItemToCart(id, count);
+    response.then((res) => {
       console.log(res);
-    })
-  }
+    });
+  };
   useEffect(() => {
     const showItem = () => {
       let item = getItem(id);
@@ -23,12 +24,13 @@ const Item = (props) => {
     showItem();
   }, [id]);
   return (
-    <div>
+    <div class="container-centered"
+    >
       <p>name {item.name}</p>
       <p>price {item.price}</p>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex",justifyContent: "center" }}>
         <button
-          disabled={count>item.itemsCount-1}
+          disabled={count > item.itemsCount - 1}
           onClick={() => {
             setCount(count + 1);
           }}
@@ -36,7 +38,7 @@ const Item = (props) => {
           +
         </button>
         <button
-        disabled={count<=0}
+          disabled={count <= 0}
           onClick={() => {
             setCount(count - 1);
           }}
@@ -44,16 +46,24 @@ const Item = (props) => {
           -
         </button>
       </div>
-      <br/>
-      <button disabled={count===0||props.authedUser==null} onClick={buyItem}> Add to Cart </button>
-      { 
-        item.itemsCount <=0 ? <p style={{color:"red"}}>OUT OF STOCK</p> : <br/>
-      }
+      <br />
+      <button
+        disabled={count === 0 || props.authedUser == null}
+        onClick={buyItem}
+      >
+        {" "}
+        Add to Cart{" "}
+      </button>
+      {item.itemsCount <= 0 ? (
+        <p style={{ color: "red" }}>OUT OF STOCK</p>
+      ) : (
+        <br />
+      )}
     </div>
   );
 };
 
-function mapStateToProps({ items,authedUser }) {
+function mapStateToProps({ items, authedUser }) {
   return {
     items,
     authedUser,

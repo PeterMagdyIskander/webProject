@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { setAuthedUser } from "../../actions/authedUser";
 import { connect } from "react-redux";
+import '../../styles/app.css';
 const OwnerNavbar = (props) => {
   const {dispatch}=props;
   const signOut = () => {
@@ -10,7 +11,7 @@ const OwnerNavbar = (props) => {
   return (
     <div>
       <nav>
-        <ul style={{"display":"flex" ,justifyContent:"space-evenly"}}>
+        <ul>
           <li>
             <Link to="/">Browser Items</Link>
           </li>
@@ -20,7 +21,11 @@ const OwnerNavbar = (props) => {
           <li>
           <Link to="/myshoppingcart" >My Cart</Link>
           </li>
-          <li>
+         <li>
+         <div className="separator"></div>
+         </li>
+
+         <li>
           <Link to="/" onClick={signOut}>Sign out</Link>
           </li>
           

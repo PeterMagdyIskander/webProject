@@ -2,22 +2,27 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import OwnerNavBar from "./OwnerNavbar";
 import UserNavBar from "./UserNavbar";
+import "../../styles/app.css";
 const NavBar = (props) => {
   return (
-    <div>
-      {props.authedUser == null ? (
-        <div >
-          <p> [OUR LOGO] Happy Shopping </p>{" "}
-          <Link to="/signin" activeclassname="active">
-            <button >Sign in</button>
-          </Link>
-        </div>
-      ) : props.authedUser.owner ? (
-        <OwnerNavBar />
-      ) : (
-        <UserNavBar />
-      )}
-    </div>
+    <nav>
+      <div className="logo"> HAPPY SHOPPING </div>
+      <div className="menu">
+        {props.authedUser == null ? (
+          <ul>
+            <li>
+              <Link to="/signin" activeclassname="active" >
+                Sign in
+              </Link>
+            </li>
+          </ul>
+        ) : props.authedUser.owner ? (
+          <OwnerNavBar />
+        ) : (
+          <UserNavBar />
+        )}
+      </div>
+    </nav>
   );
 };
 

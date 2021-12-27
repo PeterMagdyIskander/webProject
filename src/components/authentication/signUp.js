@@ -18,7 +18,7 @@ const SignUp = (props) => {
     });
   };
   return (
-    <div>
+    <div className="container-centered">
       <input
         type="input"
         onChange={(e) => {

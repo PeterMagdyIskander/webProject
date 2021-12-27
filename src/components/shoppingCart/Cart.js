@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { receiveItems } from "../../actions/items";
+import CartItem from "./CartItem";
+
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [total,setTotal]=useState(0);
@@ -47,22 +49,25 @@ const Cart = (props) => {
   }
   
   return (
-    <div>
+    <div className="container-centered">
     {
       props.authedUser==null? <Link to="/signup"/>:
-    <div><ul>
+    <div>
+    <ul>
         {cartItems.map((item) => {
           return (
             <li key={item.item.id}>
-              {" "}
-              {item.item.name}
+             <CartItem name={item.item.name} price={item.item.price} img={item.item.img} />
             </li>
           );
         })}
       </ul>
-      <p>total : {total}</p> </div>
+      </div>
     }
-    <button onClick={()=>{handleCheckOut()}}> checkOut</button>
+    <button  onClick={()=>{handleCheckOut()}} disabled={cartItems.length===0}> checkOut</button>
+    {
+      cartItems.length===0 ? <p style={{color:"red"}}> PLEASE BUY AN ITEM FIRST </p> : <br/>
+    }
     </div>
   );
 };

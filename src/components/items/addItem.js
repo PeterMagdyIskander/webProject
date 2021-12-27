@@ -29,22 +29,22 @@ const AddItem = (props) => {
     
   }
   return (
-      <div>
+      <div className="container-centered">
       { props.authedUser==null? <Link to="/signup"/>:<div><input type="input" placeholder="Item Name" onChange={(e)=>{setName(e.target.value)}}/>
         <br/>
         <input type="number" placeholder="Item Price" onChange={(e)=>{setPrice(e.target.value)}}/>
         <br/>
         <input type="number" placeholder="Item Count" onChange={(e)=>{setItemCount(e.target.value)}}/>
         <br/>
-        <input
+       <div style={{textAlign: "left",marginLeft:"32%"}}>
+       <input
         type="radio"
         name="category"
         value="Electronics"
         onChange={(e) => {
             setCategory("Electronics");
         }}
-      />
-      <label htmlFor="Electronics">Electronics</label>
+      /> Electronics
       <br />
       <input
         type="radio"
@@ -53,8 +53,8 @@ const AddItem = (props) => {
         onChange={(e) => {
             setCategory("Accessories");
         }}
-      />
-      <label htmlFor="Accessories">Accessories</label>
+      />Accessories 
+      </div>
       <br />
     <button onClick={()=>{handleAddItem()}}>Add item</button> </div>}
     </div>
