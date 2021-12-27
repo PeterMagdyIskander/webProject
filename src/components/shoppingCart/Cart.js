@@ -73,7 +73,7 @@ const Cart = (props) => {
           </button>
         </div>
       )}
-      <p>total {total}</p>
+      <p>total: {total}</p>
       <button
         
         disabled={cartItems.length === 0}
