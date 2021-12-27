@@ -2,6 +2,7 @@
 import "../../styles/app.css";
 
 const CartItem = (props) => {
+    console.log(props)
   return (
     <div>
       
@@ -11,7 +12,7 @@ const CartItem = (props) => {
             return <div>
                 <p>{item.item.name}</p>
                 <img alt={item.item.name} src={item.item.img} className="item-img"/>
-                <p>{item.item.price}</p>
+                <p>price: ({item.boughtCount})*{item.item.price}</p>
             </div>
         }else{
             return null

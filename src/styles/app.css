@@ -99,3 +99,7 @@ li{
 .centered{
     text-align: center;
 }
+.cart-button{
+    margin-top: 40%;
+    height: 50px;
+}

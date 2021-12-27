@@ -51,36 +51,37 @@ const Cart = (props) => {
         <Link to="/signup" />
       ) : (
         <div className="cart-cards">
-          <button
+          <button className="cart-button"
             disabled={index <= 0}
             onClick={() => {
               setIndex(index - 1);
             }}
           >
-            swipe left
+            prev item
           </button>
           <CartItem
             cart={cartItems}
             index={index}
           />
-          <button
+          <button className="cart-button"
             disabled={index >= cartItems.length-1}
             onClick={() => {
               setIndex(index + 1);
             }}
           >
-            swipe right
+            next item
           </button>
         </div>
       )}
+      <p>total {total}</p>
       <button
-        onClick={() => {
-          handleCheckOut();
-        }}
+        
         disabled={cartItems.length === 0}
       >
         {" "}
-        checkOut
+       <Link onClick={() => {
+          handleCheckOut();
+        }} to='/'> checkOut</Link>
       </button>
       {cartItems.length === 0 ? (
         <p style={{ color: "red" }}> PLEASE BUY AN ITEM FIRST </p>

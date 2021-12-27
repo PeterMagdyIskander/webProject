@@ -48,6 +48,7 @@ const Item = (props) => {
         </button>
       </div>
       <br />
+      <p>Buying {count} {item.name}(s)</p>
       <button
         disabled={count === 0 || props.authedUser == null}
         onClick={buyItem}

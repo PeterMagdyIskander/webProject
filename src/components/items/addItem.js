@@ -44,7 +44,7 @@ const AddItem = (props) => {
         onChange={(e) => {
             setCategory("Electronics");
         }}
-      /> Electronics
+      />Electronics
       <br />
       <input
         type="radio"
