@@ -53,12 +53,13 @@ li{
     transform: translate(-50%, -50%);
     padding: 10px;
     text-align: center;
-    background-color:#A8DADC;
-    border-radius:5%;
+    background-color:#F1FAEE;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .cart-cards{
     display: flex;
+    justify-content: space-between;
 }
 .cart-item-info{
     padding-top: 27%;

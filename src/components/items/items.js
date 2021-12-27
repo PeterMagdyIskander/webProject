@@ -40,9 +40,11 @@ const ItemsPage = (props) => {
   };
 
   useEffect(() => {
-    
     setDisplayItemsIds(itemsIds);
+   const handleFilter=()=>{
     handleFilteration();
+   }
+   handleFilter();
   },[itemsIds,categories]);
 
   return (

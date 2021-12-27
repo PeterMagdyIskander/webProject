@@ -26,8 +26,9 @@ const Item = (props) => {
   return (
     <div class="container-centered"
     >
-      <p>name {item.name}</p>
-      <p>price {item.price}</p>
+      <p>{item.name}</p>
+      <p>{item.price}</p>
+      <img alt={item.name} src={item.img} className="item-img"/>
       <div style={{ display: "flex",justifyContent: "center" }}>
         <button
           disabled={count > item.itemsCount - 1}
@@ -59,6 +60,7 @@ const Item = (props) => {
       ) : (
         <br />
       )}
+      
     </div>
   );
 };

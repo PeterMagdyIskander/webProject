@@ -1,163 +1,164 @@
-
 let users = [
-    {
-      id: "petermagdy",
-      name: "Peter Magdy",
-      password: "123456789",
-      owner: false,
+  {
+    id: "petermagdy",
+    name: "Peter Magdy",
+    password: "123456789",
+    owner: false,
+    itemIds: [],
+  },
+  {
+    id: "petergeorge",
+    name: "Peter George",
+    password: "12345678",
+    owner: true,
+    itemIds: ["8xf0y6ziyjabvozdd253nf", "8xf0y6ziyjabvozdd253ng"],
+  },
+];
+
+let items = {
+  "8xf0y6ziyjabvozdd253nf": {
+    owner: "petergeorge",
+    id: "8xf0y6ziyjabvozdd253nf",
+    name: "Iphone 13",
+    category: "Electronics",
+    price: "18000",
+    itemsCount: 6,
+    img: "/images/iphone13.png",
+  },
+  "8xf0y6ziyjabvozdd253ng": {
+    owner: "petergeorge",
+    id: "8xf0y6ziyjabvozdd253ng",
+    name: "Razor Blade 15",
+    category: "Electronics",
+    price: "35000",
+    itemsCount: 6,
+    img: "/images/razorblade15.png",
+  },
+  "8xfd0y6ziyjabvsozdd253nf": {
+    owner: "petergeorge",
+    id: "8xfd0y6ziyjabvsozdd253nf",
+    name: "Iphone 13",
+    category: "Electronics",
+    price: "18000",
+    itemsCount: 6,
+    img: "/images/iphone13.png",
+  },
+  "8xf0yf6zisyjabvozdd253ng": {
+    owner: "petergeorge",
+    id: "8xf0yf6ziyjabvozdsd253ng",
+    name: "Razor Blade 15",
+    category: "Electronics",
+    price: "35000",
+    itemsCount: 6,
+    img: "/images/razorblade15.png",
+  },
+  "8xf0y6zsiyjabvozdd253nf": {
+    owner: "petergeorge",
+    id: "8xf0y6ziyjabvozsdd253nf",
+    name: "Iphone 13",
+    category: "Electronics",
+    price: "18000",
+    itemsCount: 6,
+    img: "/images/iphone13.png",
+  },
+  "8xf0y6zsiyjabvozdd253ng": {
+    owner: "petergeorge",
+    id: "8xf0y6ziyjabvozdsd253ng",
+    name: "Razor Blade 15",
+    category: "Electronics",
+    price: "35000",
+    itemsCount: 6,
+    img: "/images/razorblade15.png",
+  },
+};
+let myCart = [];
+function binarySearch(ArrayOfUsers, username) {
+  let data = ArrayOfUsers;
+  data.sort((a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1));
+  let l = 0;
+  let r = data.length - 1;
+  while (l <= r) {
+    let m = l + Math.floor((r - l) / 2);
+
+    let res = username.localeCompare(data[m].id);
+
+    if (res === 0) return m;
+
+    if (res > 0) l = m + 1;
+    else r = m - 1;
+  }
+  return -1;
+}
+
+export function _getItems() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(items), 50);
+  });
+}
+export function _getCart() {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(myCart), 50);
+  });
+}
+export function _getItem(id) {
+  return new Promise((res, rej) => {
+    setTimeout(() => res(items[id]), 50);
+  });
+}
+export function _addItemToCart(itemId, count) {
+  let cartItem = {
+    index:myCart.length,
+    item: items[itemId],
+    boughtCount: count,
+  };
+  myCart.push(cartItem);
+  return new Promise((res, rej) => {
+    setTimeout(() => res(true), 50);
+  });
+}
+export function _signIn(username, password) {
+  let userAccount = null;
+  let index = binarySearch(users, username);
+  if (index !== -1 && users[index].password === password) {
+    userAccount = users[index];
+  }
+  return new Promise((res, rej) => {
+    setTimeout(() => res(userAccount), 50);
+  });
+}
+
+export function _addItem(item) {
+  items[item.id] = item;
+  let index = binarySearch(users, item.owner);
+  users[index].itemIds.push(item.id);
+  return new Promise((res, rej) => {
+    setTimeout(() => res(true), 50);
+  });
+}
+
+export function _signUp(username, name, password, owner) {
+  let user = null;
+
+  let found = false;
+  users.forEach((user) => {
+    if (user.id === username) {
+      found = true;
+    }
+  });
+  if (!found) {
+    console.log(username, name, password, owner);
+    user = {
+      id: username,
+      name: name,
+      password: password,
+      owner: owner,
       itemIds: [],
-    },
-    {
-      id: "petergeorge",
-      name: "Peter George",
-      password: "12345678",
-      owner: true,
-      itemIds: ["8xf0y6ziyjabvozdd253nf","8xf0y6ziyjabvozdd253ng"],
-    },
-  ];
-  
-  let items = {
-      "8xf0y6ziyjabvozdd253nf":{
-        owner: "petergeorge",
-        id: "8xf0y6ziyjabvozdd253nf",
-        name: "Iphone 13",
-        category:"Electronics",
-        price:"18000",
-        itemsCount:6,
-        img:'images/iphone13.png',
-      },
-      "8xf0y6ziyjabvozdd253ng":{
-        owner: "petergeorge",
-        id: "8xf0y6ziyjabvozdd253ng",
-        name: "Razor Blade 15",
-        category:"Electronics",
-        price:"35000",
-        itemsCount:6,
-        img:'images/razorblade15.png',
-      },"s":{
-        owner: "petergeorge",
-        id: "8xfd0y6ziyjabvsozdd253nf",
-        name: "Iphone 13",
-        category:"Electronics",
-        price:"18000",
-        itemsCount:6,
-        img:'images/iphone13.png',
-      },
-      "8xf0yf6zisyjabvozdd253ng":{
-        owner: "petergeorge",
-        id: "8xf0yf6ziyjabvozdsd253ng",
-        name: "Razor Blade 15",
-        category:"Electronics",
-        price:"35000",
-        itemsCount:6,
-        img:'images/razorblade15.png',
-      },
-      "8xf0y6zsiyjabvozdd253nf":{
-        owner: "petergeorge",
-        id: "8xf0y6ziyjabvozsdd253nf",
-        name: "Iphone 13",
-        category:"Electronics",
-        price:"18000",
-        itemsCount:6,
-        img:'images/iphone13.png',
-      },
-      "8xf0y6zsiyjabvozdd253ng":{
-        owner: "petergeorge",
-        id: "8xf0y6ziyjabvozdsd253ng",
-        name: "Razor Blade 15",
-        category:"Electronics",
-        price:"35000",
-        itemsCount:6,
-        img:'images/razorblade15.png',
-      },
+    };
+
+    users.push(user);
   }
-  let myCart=[];
-  function binarySearch(ArrayOfUsers, username) {
-    let data = ArrayOfUsers;
-    data.sort((a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1));
-    let l = 0;
-    let r = data.length - 1;
-    while (l <= r) {
-      let m = l + Math.floor((r - l) / 2);
-  
-      let res = username.localeCompare(data[m].id);
-  
-      if (res === 0) return m;
-  
-      if (res > 0) l = m + 1;
-      else r = m - 1;
-    }
-    return -1;
-  }
-  
-  export function _getItems() {
-    return new Promise((res, rej) => {
-      setTimeout(() => res(items), 50);
-    });
-  }
-  export function _getCart() {
-    return new Promise((res, rej) => {
-      setTimeout(() => res(myCart), 50);
-    });
-  }
-  export function _getItem(id) {
-    return new Promise((res, rej) => {
-      setTimeout(() => res(items[id]), 50);
-    });
-  }
-  export function _addItemToCart(itemId,count){
-    let cartItem={
-      "item":items[itemId],
-      "boughtCount":count,
-    }
-    myCart.push(cartItem);
-    return new Promise((res, rej) => {
-      setTimeout(() => res(true), 50);
-    });
-  }
-  export function _signIn(username, password) {
-    let userAccount = null;
-    let index = binarySearch(users, username);
-    if (index !== -1 && users[index].password === password) {
-      userAccount = users[index];
-    }
-    return new Promise((res, rej) => {
-      setTimeout(() => res(userAccount), 50);
-    });
-  }
-  
-  export function _addItem(item){
-    items[item.id]=item;
-    let index = binarySearch(users, item.owner);
-    users[index].itemIds.push(item.id);
-    return new Promise((res, rej) => {
-      setTimeout(() => res(true), 50);
-    });
-  }
-  
-  export function _signUp(username,name,password,owner){
-    let user=null;
-    
-    let found=false;
-    users.forEach((user)=>{
-      if(user.id===username){
-        found=true;
-      }
-    })
-    if (!found ) {
-      console.log(username,name,password,owner)
-      user={
-        "id": username,
-        "name": name,
-        "password": password,
-        "owner": owner,
-        "itemIds": [],
-      }
-      
-      users.push(user);
-    }
-    let index = binarySearch(users, username);
-    return new Promise((res, rej) => {
-      setTimeout(() => res(users[index]), 50);
-    });
-  }
+  let index = binarySearch(users, username);
+  return new Promise((res, rej) => {
+    setTimeout(() => res(users[index]), 50);
+  });
+}

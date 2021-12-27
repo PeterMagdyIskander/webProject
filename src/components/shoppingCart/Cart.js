@@ -1,4 +1,4 @@
-import { getCart} from "../../utils/api";
+import { getCart } from "../../utils/api";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -7,7 +7,8 @@ import CartItem from "./CartItem";
 
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
-  const [total,setTotal]=useState(0);
+  const [total, setTotal] = useState(0);
+  const [index, setIndex] = useState(0);
   useEffect(() => {
     const getTheCart = () => {
       let cart = getCart();
@@ -18,67 +19,84 @@ const Cart = (props) => {
     getTheCart();
   }, [cartItems]);
 
-
   useEffect(() => {
-    const calculateTotal=()=>{
-        let sum=0;
-          cartItems.forEach(item=>{
-              sum+=+item.item.price*+item.boughtCount;
-            
-          })
-          setTotal(sum);
-      }
-      calculateTotal()
-  }, [cartItems,total]);
-  
-  const handleCheckOut=()=>{
-    let allItems=props.items;
-    
-    cartItems.forEach((item)=>{
-      for(let i=0;i<props.itemsIds.length;i++){
-        
-        if(allItems[props.itemsIds[i]].name===item.item.name){
-          
-          allItems[props.itemsIds[i]].itemsCount-=item.boughtCount;
-          console.log("item after update",allItems[props.itemsIds[i]]);
+    const calculateTotal = () => {
+      let sum = 0;
+      cartItems.forEach((item) => {
+        sum += +item.item.price * +item.boughtCount;
+      });
+      setTotal(sum);
+    };
+    calculateTotal();
+  }, [cartItems, total]);
+
+  const handleCheckOut = () => {
+    let allItems = props.items;
+
+    cartItems.forEach((item) => {
+      for (let i = 0; i < props.itemsIds.length; i++) {
+        if (allItems[props.itemsIds[i]].name === item.item.name) {
+          allItems[props.itemsIds[i]].itemsCount -= item.boughtCount;
+          console.log("item after update", allItems[props.itemsIds[i]]);
         }
       }
-    })
-    
+    });
+
     return props.dispatch(receiveItems(allItems));
-  }
-  
+  };
+
   return (
     <div className="container-centered">
-    {
-      props.authedUser==null? <Link to="/signup"/>:
-    <div>
-    <ul>
-        {cartItems.map((item) => {
-          return (
-            <li key={item.item.id}>
-             <CartItem name={item.item.name} price={item.item.price} img={item.item.img} />
-            </li>
-          );
-        })}
-      </ul>
-      </div>
-    }
-    <button  onClick={()=>{handleCheckOut()}} disabled={cartItems.length===0}> checkOut</button>
-    {
-      cartItems.length===0 ? <p style={{color:"red"}}> PLEASE BUY AN ITEM FIRST </p> : <br/>
-    }
+      {props.authedUser == null ? (
+        <Link to="/signup" />
+      ) : (
+        <div className="cart-cards">
+          <button
+            disabled={index <= 0}
+            onClick={() => {
+              setIndex(index - 1);
+            }}
+          >
+            swipe left
+          </button>
+          <CartItem
+            cart={cartItems}
+            index={index}
+          />
+          <button
+            disabled={index >= cartItems.length-1}
+            onClick={() => {
+              setIndex(index + 1);
+            }}
+          >
+            swipe right
+          </button>
+        </div>
+      )}
+      <button
+        onClick={() => {
+          handleCheckOut();
+        }}
+        disabled={cartItems.length === 0}
+      >
+        {" "}
+        checkOut
+      </button>
+      {cartItems.length === 0 ? (
+        <p style={{ color: "red" }}> PLEASE BUY AN ITEM FIRST </p>
+      ) : (
+        <br />
+      )}
     </div>
   );
 };
 
-
-function mapStateToProps({authedUser,items}){
-  let itemsIds=Object.keys(items);
+function mapStateToProps({ authedUser, items }) {
+  let itemsIds = Object.keys(items);
   return {
     authedUser,
     items,
     itemsIds,
-  }
+  };
 }
 export default connect(mapStateToProps)(Cart);

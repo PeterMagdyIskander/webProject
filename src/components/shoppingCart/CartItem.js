@@ -1,17 +1,24 @@
-import "../../styles/app.css"
 
+import "../../styles/app.css";
 
-const CartItem=(props)=>{
-    return(
-        <div className="cart-cards">
-            <div>
-                <img  className="item-img" src={props.img}/>
+const CartItem = (props) => {
+  return (
+    <div>
+      
+{
+    props.cart.map((item)=>{
+        if(item.index===props.index){
+            return <div>
+                <p>{item.item.name}</p>
+                <img alt={item.item.name} src={item.item.img} className="item-img"/>
+                <p>{item.item.price}</p>
             </div>
-            <div className="cart-item-info">
-                <p>{props.name}</p>
-                <p>{props.price}</p>
-            </div>
-        </div>
-    )
+        }else{
+            return null
+        }
+    })
 }
+    </div>
+  );
+};
 export default CartItem;

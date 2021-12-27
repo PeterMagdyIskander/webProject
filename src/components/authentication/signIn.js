@@ -16,7 +16,7 @@ const SignIn = (props) => {
     });
   };
   return (
-    <div>
+    <div className="container-centered">
       <input
         type="input"
         onChange={(e) => {
@@ -24,6 +24,8 @@ const SignIn = (props) => {
         }}
         placeholder="Please Enter You Username"
       />
+      <br/>
+      <br />
       <input
         type="password"
         onChange={(e) => {
@@ -39,7 +41,6 @@ const SignIn = (props) => {
         }}>Login</Link>
       </button>
       
-      <br />
       <br />
       <br />
       <button>
