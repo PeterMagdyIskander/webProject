@@ -1,6 +1,7 @@
 html{
     background-color: #f7f7f7;
     font-family: 'Roboto Mono', monospace;
+    font-size:18px;
 }
 ::-webkit-scrollbar {
     width: 10px;
@@ -46,7 +47,7 @@ li{
 }
 .container-centered{
     width: 500px;
-    height: 500px;
+    height:fit-content;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -102,4 +103,44 @@ li{
 .cart-button{
     margin-top: 40%;
     height: 50px;
+}
+.sign-in-page{
+    border-radius: 25px;
+    width: 400px;
+    height: 450px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    text-align: center;
+    background-color:#F1FAEE;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.sign-in-input{
+    width: 210px;
+    height: 25px;
+    font-size:medium;
+    padding-left:7px;
+    border-radius: 30px;
+    border:none;
+}
+.login-btn{
+    margin-top: 125px;
+    width: 75px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    font-size:medium;
+    border:none;
+}
+.signup-btn{
+    margin-top: 50px;
+    width: 75px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    font-size:medium;
+    border:none;
 }

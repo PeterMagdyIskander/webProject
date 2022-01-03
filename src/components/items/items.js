@@ -44,7 +44,7 @@ const ItemsPage = (props) => {
    const handleFilter=()=>{
     handleFilteration();
    }
-   handleFilter();
+   handleFilter()
   },[itemsIds,categories]);
 
   return (

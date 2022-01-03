@@ -6,7 +6,7 @@ import "../../styles/app.css";
 const NavBar = (props) => {
   return (
     <nav>
-      <div className="logo"> HAPPY SHOPPING </div>
+      <div className="logo"> HAPPY SHOPPING</div>
       <div className="menu">
         {props.authedUser == null ? (
           <ul>

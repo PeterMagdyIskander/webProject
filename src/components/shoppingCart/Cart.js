@@ -11,7 +11,7 @@ const Cart = (props) => {
   const [index, setIndex] = useState(0);
   useEffect(() => {
     const getTheCart = () => {
-      let cart = getCart();
+      let cart = getCart(props.authedUser.id);
       cart.then((res) => {
         setCartItems(res);
       });
@@ -47,8 +47,8 @@ const Cart = (props) => {
 
   return (
     <div className="container-centered">
-      {props.authedUser == null ? (
-        <Link to="/signup" />
+      {props.authedUser === null ? (
+        <Link to="/signin" />
       ) : (
         <div className="cart-cards">
           <button className="cart-button"

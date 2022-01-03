@@ -18,6 +18,8 @@ const UserNavbar = (props) => {
           <li>
           <Link to="/myshoppingcart" >My Cart</Link>
           </li>
+
+         
           <li>
          <div className="separator"></div>
          </li>

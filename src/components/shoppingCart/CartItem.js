@@ -9,7 +9,7 @@ const CartItem = (props) => {
 {
     props.cart.map((item)=>{
         if(item.index===props.index){
-            return <div>
+            return <div key={item.id}>
                 <p>{item.item.name}</p>
                 <img alt={item.item.name} src={item.item.img} className="item-img"/>
                 <p>price: ({item.boughtCount})*{item.item.price}</p>

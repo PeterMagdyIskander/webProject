@@ -6,11 +6,11 @@ export function getItems() {
 export function getItem(id){
   return _getItem(id);
 }
-export function getCart(){
-  return _getCart();
+export function getCart(username){
+  return _getCart(username);
 }
-export function addItemToCart(id,count){
-  return _addItemToCart(id,count);
+export function addItemToCart(username,id,count){
+  return _addItemToCart(username,id,count);
 }
 export function signIn(username,password){
   return _signIn(username,password);

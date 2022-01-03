@@ -1,80 +1,123 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { setAuthedUser } from "../../actions/authedUser";
 import { signUp } from "../../utils/api";
-
+import { Route,Navigate,Routes} from "react-router-dom";
 const SignUp = (props) => {
   const { dispatch } = props;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [owner, setOwner] = useState(false);
+  const[invalidPasswordVisible,setInvalidPasswordVisible]=useState(true);
+  const [authed,setAuthed]=useState(false);
+  const [userAlreadyFound,setUserAlreadyFound]=useState(false);
   const handleSignUp = () => {
+
     let signup = signUp(username, name, password, owner);
     signup.then((res) => {
-      console.log(res);
+      setAuthed(true);
       dispatch(setAuthedUser(res));
-    });
+    }).catch((res)=>{
+      setUserAlreadyFound(true);
+    })
   };
+  const validateRePassword=(val)=>{
+    setInvalidPasswordVisible(false);
+    if(val===password){
+      setInvalidPasswordVisible(true);
+    }
+  }
   return (
-    <div className="container-centered">
+    <>
+      {
+        authed ?  <Routes>
+        <Route
+        path="*"
+        element={<Navigate to="/" />}
+    />
+      </Routes>: <div className="sign-in-page">
+      <div style={{paddingTop:"50px"}}>
+      
       <input
         type="input"
+        required
+        className="sign-in-input"
         onChange={(e) => {
           setUsername(e.target.value);
         }}
-        placeholder="Please Enter You Username"
+        placeholder="username"
       />
       <br />
+        <br />
       <input
+      className="sign-in-input"
         type="input"
+        required
         onChange={(e) => {
           setName(e.target.value);
         }}
-        placeholder="Please Enter You Fullname"
+        placeholder="full name"
       />
       <br />
+        <br />
       <input
         type="password"
+        required
+        className="sign-in-input"
         onChange={(e) => {
           setPassword(e.target.value);
         }}
-        placeholder="Please Enter You Password"
+        placeholder="password"
       />
       <br />
+      <br />
+      <input
+        type="password"
+        className="sign-in-input"
+        onChange={(e) => {
+          validateRePassword(e.target.value);
+        }}
+        placeholder="re-enter Password"
+      />
+      <br />
+      {userAlreadyFound ? <p style={{color:"red"}}>user alread found</p> : !invalidPasswordVisible ? <p style={{color:"red"}}>please enter the same passowrd twice</p> : null}
+      <br />
+      <div style={{textAlign:"left",paddingLeft:"22%"}}>
       <input
         type="radio"
         id="owner"
         name="owner"
         value="owner"
+        required
         onChange={(e) => {
           setOwner(true);
         }}
       />
-      <label htmlFor="owner">Owner</label>
+      <label htmlFor="owner">owner</label>
       <br />
       <input
         type="radio"
         id="user"
         name="owner"
         value="user"
+        
         onChange={(e) => {
           setOwner(false);
         }}
       />
-      <label htmlFor="user">Normal User</label>
-      <br />
-      <button
-        onClick={() => {
-          handleSignUp();
-        }}
+      <label htmlFor="user">normal User</label>
+      </div>
+      
+      <button className="signup-btn"
+      onClick={()=>handleSignUp()}
       >
-        <Link to='/'>
-        Sign Up
-        </Link>
+      sign up
       </button>
+      </div>
     </div>
+      }
+    </>
   );
 };
 export default connect()(SignUp);

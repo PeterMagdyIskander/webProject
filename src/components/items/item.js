@@ -8,7 +8,7 @@ const Item = (props) => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const buyItem = () => {
-    const response = addItemToCart(id, count);
+    const response = addItemToCart(props.authedUser.id,id, count);
     response.then((res) => {
       console.log(res);
     });
@@ -24,7 +24,7 @@ const Item = (props) => {
     showItem();
   }, [id]);
   return (
-    <div class="container-centered"
+    <div className="container-centered"
     >
       <p>{item.name}</p>
       <p>{item.price}</p>

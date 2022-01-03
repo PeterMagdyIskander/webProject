@@ -5,6 +5,7 @@ let users = [
     password: "123456789",
     owner: false,
     itemIds: [],
+    cart: [],
   },
   {
     id: "petergeorge",
@@ -12,6 +13,7 @@ let users = [
     password: "12345678",
     owner: true,
     itemIds: ["8xf0y6ziyjabvozdd253nf", "8xf0y6ziyjabvozdd253ng"],
+    cart: [],
   },
 ];
 
@@ -71,7 +73,7 @@ let items = {
     img: "/images/razorblade15.png",
   },
 };
-let myCart = [];
+
 function binarySearch(ArrayOfUsers, username) {
   let data = ArrayOfUsers;
   data.sort((a, b) => (a.id.toLowerCase() > b.id.toLowerCase() ? 1 : -1));
@@ -89,15 +91,15 @@ function binarySearch(ArrayOfUsers, username) {
   }
   return -1;
 }
-
 export function _getItems() {
   return new Promise((res, rej) => {
     setTimeout(() => res(items), 50);
   });
 }
-export function _getCart() {
+export function _getCart(username) {
+  let index = binarySearch(users, username);
   return new Promise((res, rej) => {
-    setTimeout(() => res(myCart), 50);
+    setTimeout(() => res(users[index].cart), 50);
   });
 }
 export function _getItem(id) {
@@ -105,25 +107,36 @@ export function _getItem(id) {
     setTimeout(() => res(items[id]), 50);
   });
 }
-export function _addItemToCart(itemId, count) {
+
+export function _addItemToCart(username,itemId, count) {
+  let index = binarySearch(users, username);
   let cartItem = {
-    index:myCart.length,
+    index: users[index].cart.length,
     item: items[itemId],
     boughtCount: count,
   };
-  myCart.push(cartItem);
+  users[index].cart.push(cartItem);
   return new Promise((res, rej) => {
     setTimeout(() => res(true), 50);
   });
 }
+
+
 export function _signIn(username, password) {
   let userAccount = null;
+  let invalidPassword=false;
   let index = binarySearch(users, username);
   if (index !== -1 && users[index].password === password) {
     userAccount = users[index];
+  }else if(index !== -1 && users[index].password !== password){
+    invalidPassword=true;
   }
   return new Promise((res, rej) => {
+   if(invalidPassword){
+    setTimeout(() => rej("invalid username or password"), 50);
+   }else{
     setTimeout(() => res(userAccount), 50);
+   }
   });
 }
 
@@ -138,13 +151,14 @@ export function _addItem(item) {
 
 export function _signUp(username, name, password, owner) {
   let user = null;
-
   let found = false;
+  let index = 0;
   users.forEach((user) => {
     if (user.id === username) {
       found = true;
     }
   });
+
   if (!found) {
     console.log(username, name, password, owner);
     user = {
@@ -156,9 +170,11 @@ export function _signUp(username, name, password, owner) {
     };
 
     users.push(user);
+    index = binarySearch(users, username);
   }
-  let index = binarySearch(users, username);
+
   return new Promise((res, rej) => {
-    setTimeout(() => res(users[index]), 50);
+    if (found) setTimeout(() => rej("User already exists", 50));
+    else setTimeout(() => res(users[index]), 50);
   });
 }
