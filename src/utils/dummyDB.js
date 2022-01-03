@@ -97,19 +97,45 @@ export function _getItems() {
   });
 }
 export function _getCart(username) {
-  if(username!=null){
-  let index = binarySearch(users, username);
-  let totalCostOfCart=0;
-  users[index].cart.forEach((item)=>{
-    totalCostOfCart += +item.boughtCount *+ item.item.price;
-  })
-  let cart={
-    cart:users[index].cart,
-    total:totalCostOfCart,
+  if (username != null) {
+    let index = binarySearch(users, username);
+    let totalCostOfCart = 0;
+    users[index].cart.forEach((item) => {
+      totalCostOfCart += +item.boughtCount * +item.item.price;
+    });
+    let cart = {
+      cart: users[index].cart,
+      total: totalCostOfCart,
+    };
+    return new Promise((res, rej) => {
+      setTimeout(() => res(cart), 50);
+    });
+  } else {
+    return new Promise((res, rej) => {
+      setTimeout(() => rej("invalid params"), 50);
+    });
   }
-  return new Promise((res, rej) => {
-    setTimeout(() => res(cart), 50);
-  });}else{
+}
+export function _handleCheckOut(username,cart) {
+
+  if (username != null) {
+    let index = binarySearch(users, username);
+    
+    users[index].cart=[];
+    let itemsIds = Object.keys(items);
+    itemsIds.forEach((id)=>{
+      for(let i=0;i<cart.length;i++){
+        if(id===cart[i].item.id){
+          items[id].itemsCount-=cart[i].boughtCount;
+        }
+      }
+    })
+    return new Promise((res, rej) => {
+      setTimeout(() => res([]), 50);
+    });
+
+
+  } else {
     return new Promise((res, rej) => {
       setTimeout(() => rej("invalid params"), 50);
     });
@@ -121,7 +147,7 @@ export function _getItem(id) {
   });
 }
 
-export function _addItemToCart(username,itemId, count) {
+export function _addItemToCart(username, itemId, count) {
   let index = binarySearch(users, username);
   let cartItem = {
     index: users[index].cart.length,
@@ -134,22 +160,24 @@ export function _addItemToCart(username,itemId, count) {
   });
 }
 
-
 export function _signIn(username, password) {
   let userAccount = null;
-  let invalidPassword=false;
+  let invalidPassword = false;
   let index = binarySearch(users, username);
   if (index !== -1 && users[index].password === password) {
     userAccount = users[index];
-  }else if(index !== -1 && users[index].password !== password){
-    invalidPassword=true;
+  } else if (
+    (index !== -1 && users[index].password !== password) ||
+    index === -1
+  ) {
+    invalidPassword = true;
   }
   return new Promise((res, rej) => {
-   if(invalidPassword){
-    setTimeout(() => rej("invalid username or password"), 50);
-   }else{
-    setTimeout(() => res(userAccount), 50);
-   }
+    if (invalidPassword) {
+      setTimeout(() => rej("invalid username or password"), 50);
+    } else {
+      setTimeout(() => res(userAccount), 50);
+    }
   });
 }
 
@@ -180,7 +208,7 @@ export function _signUp(username, name, password, owner) {
       password: password,
       owner: owner,
       itemIds: [],
-      cart:[],
+      cart: [],
     };
 
     users.push(user);

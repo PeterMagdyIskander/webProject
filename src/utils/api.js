@@ -1,4 +1,4 @@
-import {_getItems,_getItem,_getCart,_addItemToCart,_signIn,_signUp,_addItem}from "../utils/dummyDB";
+import {_getItems,_getItem,_getCart,_addItemToCart,_signIn,_signUp,_addItem,_handleCheckOut}from "../utils/dummyDB";
 
 export function getItems() {
     return _getItems();
@@ -22,4 +22,7 @@ export function signUp(username,name,password,owner){
 
 export function addItem(item){
   return _addItem(item);
+}
+export function handleCheckOut(username,cart){
+  return _handleCheckOut(username,cart);
 }

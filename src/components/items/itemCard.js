@@ -5,7 +5,7 @@ const ItemCard = (props) => {
   return (
     <Link to={`/item/${props.id}`}>
       <div >
-        <img alt="iphone" src={props.items.img} className="item-img"/>
+        <img alt={props.items.name} src={props.items.img} className="item-img"/>
         <div >{props.items.name}</div>
       </div>
       </Link>

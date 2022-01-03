@@ -13,6 +13,7 @@ const SignIn = (props) => {
   const handleOnLoginClick = () => {
     let user = signIn(username, password);
     user.then((res) => {
+      console.log("here",res)
       setAuthed(true);
       dispatch(setAuthedUser(res));
     }).catch((res)=>{

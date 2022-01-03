@@ -1,12 +1,14 @@
-import { getCart } from "../../utils/api";
+import { getCart,handleCheckOut,getItems } from "../../utils/api";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { receiveItems } from "../../actions/items";
 import CartItem from "./CartItem";
 import { Route,Navigate,Routes} from "react-router-dom";
+import {AiOutlineDoubleLeft,AiOutlineDoubleRight} from 'react-icons/ai';
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
+  const [allItems, setAllItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
 
@@ -28,19 +30,17 @@ const Cart = (props) => {
 
   
 
-  const handleCheckOut = () => {
-    let allItems = props.items;
+  const CheckOut = () => {
+    let response=handleCheckOut(props.authedUser.id,props.authedUser.cart);
+    response.then(res=>{
+      console.log(res);
+    })
 
-    cartItems.forEach((item) => {
-      for (let i = 0; i < props.itemsIds.length; i++) {
-        if (allItems[props.itemsIds[i]].name === item.item.name) {
-          allItems[props.itemsIds[i]].itemsCount -= item.boughtCount;
-          console.log("item after update", allItems[props.itemsIds[i]]);
-        }
-      }
-    });
-
-    return props.dispatch(receiveItems(allItems));
+    let allItemsRes=getItems();
+    allItemsRes.then(res=>{
+      setAllItems(res);
+    })
+    props.dispatch(receiveItems(allItems));
   };
 
   return (
@@ -60,7 +60,7 @@ const Cart = (props) => {
               setIndex(index - 1);
             }}
           >
-            prev item
+            <AiOutlineDoubleLeft size={28}/>
           </button>
           <CartItem
             cart={cartItems}
@@ -72,19 +72,17 @@ const Cart = (props) => {
               setIndex(index + 1);
             }}
           >
-            next item
+             <AiOutlineDoubleRight size={28} />
           </button>
         </div>
       )}
       <p>total: {total}</p>
       <button
-        
-        disabled={cartItems.length === 0}
-      >
-        {" "}
-       <Link onClick={() => {
-          handleCheckOut();
-        }} to='/'> checkOut</Link>
+      className="add-to-cart-btn"
+      onClick={() => {
+          CheckOut();
+        }}
+      >checkout
       </button>
       {cartItems.length === 0 ? (
         <p style={{ color: "red" }}> please add an item to cart </p>
