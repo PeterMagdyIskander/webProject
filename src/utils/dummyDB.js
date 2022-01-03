@@ -97,10 +97,23 @@ export function _getItems() {
   });
 }
 export function _getCart(username) {
+  if(username!=null){
   let index = binarySearch(users, username);
+  let totalCostOfCart=0;
+  users[index].cart.forEach((item)=>{
+    totalCostOfCart += +item.boughtCount *+ item.item.price;
+  })
+  let cart={
+    cart:users[index].cart,
+    total:totalCostOfCart,
+  }
   return new Promise((res, rej) => {
-    setTimeout(() => res(users[index].cart), 50);
-  });
+    setTimeout(() => res(cart), 50);
+  });}else{
+    return new Promise((res, rej) => {
+      setTimeout(() => rej("invalid params"), 50);
+    });
+  }
 }
 export function _getItem(id) {
   return new Promise((res, rej) => {
@@ -167,6 +180,7 @@ export function _signUp(username, name, password, owner) {
       password: password,
       owner: owner,
       itemIds: [],
+      cart:[],
     };
 
     users.push(user);

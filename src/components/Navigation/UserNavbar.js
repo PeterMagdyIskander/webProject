@@ -16,7 +16,7 @@ const UserNavbar = (props) => {
             <Link to="/">Browser Items</Link>
           </li>
           <li>
-          <Link to="/myshoppingcart" >My Cart</Link>
+            <Link to="/myshoppingcart" >My Cart</Link>
           </li>
 
          
@@ -25,7 +25,7 @@ const UserNavbar = (props) => {
          </li>
 
           <li>
-          <Link to="/" onClick={signOut}>Sign out</Link>
+            <Link to="/" onClick={signOut}>Sign out</Link>
           </li>
           
         </ul>

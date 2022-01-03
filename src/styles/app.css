@@ -144,3 +144,33 @@ li{
     font-size:medium;
     border:none;
 }
+.dec-btn{
+    color: white;
+    background-color: red;
+    border:none;
+    margin-left: 1px;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    font-size:larger;
+}
+.inc-btn{
+    color: white;
+    background-color: red;
+    border:none;
+    margin-right:1px;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    font-size:larger;
+}
+.add-to-cart-btn{
+    width: 125px;
+    height: 30px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    font-size:medium;
+    border:none;
+    margin-bottom: 15px;
+}

@@ -13,6 +13,7 @@ const Item = (props) => {
       console.log(res);
     });
   };
+
   useEffect(() => {
     const showItem = () => {
       let item = getItem(id);
@@ -31,6 +32,7 @@ const Item = (props) => {
       <img alt={item.name} src={item.img} className="item-img"/>
       <div style={{ display: "flex",justifyContent: "center" }}>
         <button
+        className="inc-btn"
           disabled={count > item.itemsCount - 1}
           onClick={() => {
             setCount(count + 1);
@@ -39,6 +41,7 @@ const Item = (props) => {
           +
         </button>
         <button
+        className="dec-btn"
           disabled={count <= 0}
           onClick={() => {
             setCount(count - 1);
@@ -52,6 +55,7 @@ const Item = (props) => {
       <button
         disabled={count === 0 || props.authedUser == null}
         onClick={buyItem}
+        className="add-to-cart-btn"
       >
         {" "}
         Add to Cart{" "}

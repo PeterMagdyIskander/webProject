@@ -34,10 +34,11 @@ const AddItem = (props) => {
   useEffect(()=>{
     if(props.authedUser !=null){
       setSignedIn(true);
+      if(props.authedUser.owner){
+        setIsOwner(true);
+      }
     }
-    if(props.authedUser.owner){
-      setIsOwner(true);
-    }
+    
     console.log(signedIn,isOwner);
   },[props.authedUser, signedIn, isOwner])
   return (
@@ -45,7 +46,7 @@ const AddItem = (props) => {
       { !signedIn ? <Routes>
         <Route
         path="*"
-        element={<Navigate to="/" />}
+        element={<Navigate to="/signin" />}
     />
       </Routes>
        : isOwner ?  (

@@ -4,31 +4,29 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { receiveItems } from "../../actions/items";
 import CartItem from "./CartItem";
-
+import { Route,Navigate,Routes} from "react-router-dom";
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
+
   useEffect(() => {
+
     const getTheCart = () => {
       let cart = getCart(props.authedUser.id);
       cart.then((res) => {
-        setCartItems(res);
-      });
+        console.log(res);
+        setCartItems(res.cart);
+        setTotal(res.total);;
+      }).catch((res)=>console.log(res));
     };
-    getTheCart();
+
+    if(props.authedUser!=null){
+      getTheCart();
+    }
   }, [cartItems]);
 
-  useEffect(() => {
-    const calculateTotal = () => {
-      let sum = 0;
-      cartItems.forEach((item) => {
-        sum += +item.item.price * +item.boughtCount;
-      });
-      setTotal(sum);
-    };
-    calculateTotal();
-  }, [cartItems, total]);
+  
 
   const handleCheckOut = () => {
     let allItems = props.items;
@@ -48,7 +46,12 @@ const Cart = (props) => {
   return (
     <div className="container-centered">
       {props.authedUser === null ? (
-        <Link to="/signin" />
+        <Routes>
+        <Route
+        path="*"
+        element={<Navigate to="/signin" />}
+    />
+      </Routes>
       ) : (
         <div className="cart-cards">
           <button className="cart-button"
@@ -84,7 +87,7 @@ const Cart = (props) => {
         }} to='/'> checkOut</Link>
       </button>
       {cartItems.length === 0 ? (
-        <p style={{ color: "red" }}> PLEASE BUY AN ITEM FIRST </p>
+        <p style={{ color: "red" }}> please add an item to cart </p>
       ) : (
         <br />
       )}
