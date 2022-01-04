@@ -1,95 +1,91 @@
-import { getCart,handleCheckOut,getItems } from "../../utils/api";
+import { getCart, handleCheckOut, getItems } from "../../utils/api";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { receiveItems } from "../../actions/items";
 import CartItem from "./CartItem";
-import { Route,Navigate,Routes} from "react-router-dom";
-import {AiOutlineDoubleLeft,AiOutlineDoubleRight} from 'react-icons/ai';
+import { Route, Navigate, Routes } from "react-router-dom";
+import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 const Cart = (props) => {
   const [cartItems, setCartItems] = useState([]);
   const [allItems, setAllItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
+  const [checkedOut, setCheckOut] = useState(false);
 
   useEffect(() => {
-
     const getTheCart = () => {
       let cart = getCart(props.authedUser.id);
-      cart.then((res) => {
-        console.log(res);
-        setCartItems(res.cart);
-        setTotal(res.total);;
-      }).catch((res)=>console.log(res));
+      cart
+        .then((res) => {
+          console.log(res);
+          setCartItems(res.cart);
+          setTotal(res.total);
+        })
+        .catch((res) => console.log(res));
     };
 
-    if(props.authedUser!=null){
+    if (props.authedUser != null) {
       getTheCart();
     }
   }, [cartItems]);
 
-  
-
   const CheckOut = () => {
-    let response=handleCheckOut(props.authedUser.id,props.authedUser.cart);
-    response.then(res=>{
+    let response = handleCheckOut(props.authedUser.id, props.authedUser.cart);
+    response.then((res) => {
       console.log(res);
-    })
+    });
 
-    let allItemsRes=getItems();
-    allItemsRes.then(res=>{
+    let allItemsRes = getItems();
+    allItemsRes.then((res) => {
       setAllItems(res);
-    })
+    });
     props.dispatch(receiveItems(allItems));
+    setCheckOut(true);
+    setCartItems([]);
+    setTotal(0);
   };
 
   return (
-    <div className="container-centered">
-      {props.authedUser === null ? (
-        <Routes>
-        <Route
-        path="*"
-        element={<Navigate to="/signin" />}
-    />
-      </Routes>
-      ) : (
+    <>
+      {
+        props.authedUser === null ? (<Routes><Route path="*" element={<Navigate to="/signin" />} /></Routes>) :(<div className="container-centered">
         <div className="cart-cards">
-          <button className="cart-button"
+          <button
+            className="cart-button"
             disabled={index <= 0}
             onClick={() => {
               setIndex(index - 1);
             }}
           >
-            <AiOutlineDoubleLeft size={28}/>
+            <AiOutlineDoubleLeft size={28} />
           </button>
-          <CartItem
-            cart={cartItems}
-            index={index}
-          />
-          <button className="cart-button"
-            disabled={index >= cartItems.length-1}
+          <CartItem cart={cartItems} index={index} />
+          <button
+            className="cart-button"
+            disabled={index >= cartItems.length - 1}
             onClick={() => {
               setIndex(index + 1);
             }}
           >
-             <AiOutlineDoubleRight size={28} />
+            <AiOutlineDoubleRight size={28} />
           </button>
-        </div>
-      )}
+      </div>
       <p>total: {total}</p>
       <button
-      className="add-to-cart-btn"
-      onClick={() => {
-          CheckOut();
+        className="add-to-cart-btn"
+        onClick={() => {
+          if (window.confirm("are you sure you want to checkout")) {
+            CheckOut();
+          }
         }}
-      >checkout
+      >
+        checkout
       </button>
-      {cartItems.length === 0 ? (
-        <p style={{ color: "red" }}> please add an item to cart </p>
-      ) : (
-        <br />
+      {cartItems.length === 0 ? (<p style={{ color: "red" }}> please add an item to cart </p>) : (null
       )}
-    </div>
+        </div>)
+      }
+    </>
   );
 };
 
