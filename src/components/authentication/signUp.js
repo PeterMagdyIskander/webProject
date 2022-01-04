@@ -11,15 +11,18 @@ const SignUp = (props) => {
   const [owner, setOwner] = useState(false);
   const[invalidPasswordVisible,setInvalidPasswordVisible]=useState(true);
   const [authed,setAuthed]=useState(false);
-  const [userAlreadyFound,setUserAlreadyFound]=useState(false);
+  const [inavlidParams,setinavlidParams]=useState(false);
   const handleSignUp = () => {
-
+    if(username===""||name===""||password===""||owner===""){
+      setinavlidParams(true);
+      return
+    }
     let signup = signUp(username, name, password, owner);
     signup.then((res) => {
       setAuthed(true);
       dispatch(setAuthedUser(res));
     }).catch((res)=>{
-      setUserAlreadyFound(true);
+      setinavlidParams(true);
     })
   };
   const validateRePassword=(val)=>{
@@ -81,7 +84,7 @@ const SignUp = (props) => {
         placeholder="re-enter Password"
       />
       <br />
-      {userAlreadyFound ? <p style={{color:"red"}}>user alread found</p> : !invalidPasswordVisible ? <p style={{color:"red"}}>please enter the same passowrd twice</p> : null}
+      {inavlidParams ? <p style={{color:"red"}}>please enter valid data</p> : !invalidPasswordVisible ? <p style={{color:"red"}}>please enter the same passowrd twice</p> : null}
       <br />
       <div style={{textAlign:"left",paddingLeft:"22%"}}>
       <input

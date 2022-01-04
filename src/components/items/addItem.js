@@ -123,7 +123,9 @@ const AddItem = (props) => {
           <br />
           <button className="add-to-cart-btn"
             onClick={() => {
-              handleAddItem();
+              if (window.confirm("are you sure you all the information are correct")) {
+                handleAddItem();}
+              window.alert("Item Added Successfuly")
             }}
           >
             Add item
