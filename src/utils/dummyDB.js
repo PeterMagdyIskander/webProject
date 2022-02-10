@@ -10,7 +10,7 @@ let users = [
   {
     id: "petergeorge",
     name: "Peter George",
-    password: "12345678", 
+    password: "12345678",
     owner: true,
     itemIds: ["8xf0y6ziyjabvozdd253nf", "8xf0y6ziyjabvozdd253ng"],
     cart: [],
@@ -29,6 +29,8 @@ let items = {
   },
   "8xf0y6ziyjabvozdd253ng": {
     owner: "petergeorge",
+
+    
     id: "8xf0y6ziyjabvozdd253ng",
     name: "Razor Blade 15",
     category: "Electronics",

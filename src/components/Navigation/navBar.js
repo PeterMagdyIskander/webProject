@@ -19,6 +19,7 @@ const NavBar = (props) => {
         ) : props.authedUser.owner ? (
           <OwnerNavBar />
         ) : (
+
           <UserNavBar />
         )}
       </div>

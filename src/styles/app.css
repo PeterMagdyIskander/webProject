@@ -53,39 +53,139 @@ li{
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 25px 0;
+    padding: 10px;
     text-align: center;
     background-color:#F1FAEE;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-
+.cart-cards{
+    display: flex;
+    justify-content: space-between;
+}
+.cart-item-info{
+    padding-top: 27%;
+}
+.item-img{
+    width:300px;
+     height:300px;
+    object-fit:scale-down;
+    background-color: #fafafa;
+}
+.card-label{
+    background-color: #fbfbfb;
+}
 .separator{
     border-left:1px solid #000;
     height:25px;
 }
-.report-missing-child{
-    border:none;
-    width: fit-content;
-    border-radius: 10px;
+.items-page{
+    display: flex;
+    height: 100%;
+    
+}
+.filter{
+    margin: 15px;
     padding: 10px;
-    animation: pulsateRed 5s infinite;
-    color: rgb(243, 32, 19);
-    margin: 50px auto;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width:20%;
+}
+.items{
+    width: 80%;
+    margin: 15px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.centered{
+    text-align: center;
+}
+.cart-button{
+    margin-top: 30%;
+    height: 50px;
+    border:none;
+}
+.sign-in-page{
+    border-radius: 25px;
+    width: 400px;
+    height: 450px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    text-align: center;
+    background-color:#F1FAEE;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.add-item-page{
+    border-radius: 25px;
+    width: 400px;
+    height: 450px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    text-align: center;
+    background-color:#F1FAEE;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
-@keyframes pulsateRed {
-    0% {box-shadow: 0px 0px 17px 6px rgb(207 181 186)}
-    50% {box-shadow: 0px 0px 17px 6px rgb(243, 32, 19)}
-    100% {box-shadow: 0px 0px 17px 6px rgb(207 181 186)}
-  }
-
-.missing-items{
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 10px;
+.sign-in-input{
+    width: 210px;
+    height: 25px;
+    font-size:medium;
+    padding-left:7px;
+    border-radius: 30px;
+    border:none;
 }
-.redColor{
-    color: rgb(243, 32, 19);
+.login-btn{
+    margin-top: 125px;
+    width: 75px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    font-size:medium;
+    border:none;
+}
+.signup-btn{
+    margin-top: 50px;
+    width: 75px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    font-size:medium;
+    border:none;
+}
+.dec-btn{
+    color: white;
+    background-color: red;
+    border:none;
+    margin-left: 1px;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    font-size:larger;
+}
+.inc-btn{
+    color: white;
+    background-color: red;
+    border:none;
+    margin-right:1px;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+    font-size:larger;
+}
+.add-to-cart-btn{
+    width: 125px;
+    height: 30px;
+    color: white;
+    background-color: red;
+    border-radius: 20px;
+    font-size:medium;
+    border:none;
+    margin-bottom: 15px;
 }
